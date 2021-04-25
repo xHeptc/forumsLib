@@ -388,14 +388,16 @@ function Forums.new(newName)
                 }):Play()
             end)
             function ButtonFunctions:Update(textB)
-                game.TweenService:Create(btnText, TweenInfo.new(0.14, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
-                    TextTransparency = 1
-                }):Play()
-                wait(0.14)
-                btnText.Text = textB
-                game.TweenService:Create(btnText, TweenInfo.new(0.14, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
-                    TextTransparency = 0
-                }):Play()
+                if btnText.Text ~= textB then
+                    game.TweenService:Create(btnText, TweenInfo.new(0.14, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        TextTransparency = 1
+                    }):Play()
+                    wait(0.14)
+                    btnText.Text = textB
+                    game.TweenService:Create(btnText, TweenInfo.new(0.14, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        TextTransparency = 0
+                    }):Play()
+                end 
             end
             return ButtonFunctions
         end
@@ -626,14 +628,17 @@ function Forums.new(newName)
                 }):Play()
             end)
             function ToggleFunctions:Update(textT)
-                game.TweenService:Create(toggleFrame_2, TweenInfo.new(0.14, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
-                    TextTransparency = 1
-                }):Play()
-                wait(0.14)
-                toggleFrame_2.Text = textT
-                game.TweenService:Create(toggleFrame_2, TweenInfo.new(0.14, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
-                    TextTransparency = 0
-                }):Play()
+                if toggleFrame_2.Text ~= textT then
+                    game.TweenService:Create(toggleFrame_2, TweenInfo.new(0.14, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        TextTransparency = 1
+                    }):Play()
+                    wait(0.14)
+                    toggleFrame_2.Text = textT
+                    game.TweenService:Create(toggleFrame_2, TweenInfo.new(0.14, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        TextTransparency = 0
+                    }):Play()
+                end
+                return toggle
             end
             return ToggleFunctions
         end
@@ -739,14 +744,16 @@ function Forums.new(newName)
                 end
             end)
             function BoxFunctions:Update(textB)
-                game.TweenService:Create(txtboxText, TweenInfo.new(0.14, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
-                    TextTransparency = 1
-                }):Play()
-                wait(0.14)
-                txtboxText.Text = textB
-                game.TweenService:Create(txtboxText, TweenInfo.new(0.14, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
-                    TextTransparency = 0
-                }):Play()
+                if txtboxText.Text ~= textB then
+                    game.TweenService:Create(txtboxText, TweenInfo.new(0.14, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        TextTransparency = 1
+                    }):Play()
+                    wait(0.14)
+                    txtboxText.Text = textB
+                    game.TweenService:Create(txtboxText, TweenInfo.new(0.14, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        TextTransparency = 0
+                    }):Play()
+                end
             end
             return BoxFunctions
         end
@@ -896,7 +903,7 @@ function Forums.new(newName)
             local oldKey = currentKey.Name
             callback = callback or function() end
             local KeyFunctions = {}
-
+            local mouse = game:GetService("Players").LocalPlayer:GetMouse()
             local keybindFrame = Instance.new("TextButton")
             local keyText = Instance.new("TextLabel")
             local triangle = Instance.new("ImageLabel")
@@ -1025,17 +1032,376 @@ function Forums.new(newName)
             end)
 
             function KeyFunctions:Update(newKey)
-                game.TweenService:Create(currentKey, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
-                    TextTransparency = 1
-                }):Play()
-                wait(0.14)
-                oldKey = newKey.Name
-                currentKey.Text = oldKey
-                game.TweenService:Create(currentKey, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
-                    TextTransparency = 0
-                }):Play()
+                if currentKey.Text ~= newKey.Name then
+                    game.TweenService:Create(currentKey, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        TextTransparency = 1
+                    }):Play()
+                    wait(0.14)
+                    oldKey = newKey.Name
+                    currentKey.Text = oldKey
+                    game.TweenService:Create(currentKey, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        TextTransparency = 0
+                    }):Play()
+                end
             end
             return KeyFunctions
+        end
+        function fElements:NewDropdown(title, list, callback)
+            local DropdownFunc = {}
+            title = title or "nil"
+            list = list or {}
+            callback = callback or function() end
+            local dOpened = false
+            local dropFrame = Instance.new("Frame")
+            local dropOpen = Instance.new("TextButton")
+            local mouse = game:GetService("Players").LocalPlayer:GetMouse()
+            local ms = mouse
+            local dropInf = Instance.new("TextLabel")
+            local triangle = Instance.new("ImageLabel")
+            local Sample = Instance.new("ImageLabel")
+            local expand_more = Instance.new("ImageButton")
+            local dropList = Instance.new("UIListLayout")
+
+            dropFrame.Name = "dropFrame"
+            dropFrame.Parent = sectionMain
+            dropFrame.BackgroundColor3 = Color3.fromRGB(84, 33, 33)
+            dropFrame.BorderColor3 = Color3.fromRGB(33, 33, 33)
+            dropFrame.ClipsDescendants = true
+            dropFrame.Position = UDim2.new(0.0113402065, 0, 0.593175828, 0)
+            dropFrame.Size = UDim2.new(0, 474, 0, 32)
+
+            dropOpen.Name = "dropOpen"
+            dropOpen.Parent = dropFrame
+            dropOpen.BackgroundColor3 = Color3.fromRGB(141, 56, 56)
+            dropOpen.BorderColor3 = Color3.fromRGB(27, 27, 27)
+            dropOpen.ClipsDescendants = true
+            dropOpen.Position = UDim2.new(0.00720164599, 0, 0.241830066, 0)
+            dropOpen.Size = UDim2.new(0, 474, 0, 32)
+            dropOpen.AutoButtonColor = false
+            dropOpen.Font = Enum.Font.SourceSans
+            dropOpen.Text = ""
+            dropOpen.TextColor3 = Color3.fromRGB(0, 0, 0)
+            dropOpen.TextSize = 14.000
+            dropOpen.MouseButton1Click:Connect(function()
+                if dOpened then
+                    dOpened = false
+                    game.TweenService:Create(dropFrame, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        Size = UDim2.new(0,474,0,32)
+                    }):Play()
+                    game.TweenService:Create(expand_more, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        Rotation = 0
+                    }):Play()
+                    wait(0.1)
+                    game.TweenService:Create(sectionMain, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        Size = UDim2.new(0,itemsList.AbsoluteContentSize.X,0, itemsList.AbsoluteContentSize.Y + 5)
+                    }):Play()
+                else
+                    dOpened = true
+                    game.TweenService:Create(dropFrame, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        Size = UDim2.new(0,474,0,dropList.AbsoluteContentSize.Y + 5)
+                    }):Play()
+                    game.TweenService:Create(expand_more, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        Rotation = 180
+                    }):Play()
+                    wait(0.1)
+                    game.TweenService:Create(sectionMain, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        Size = UDim2.new(0,itemsList.AbsoluteContentSize.X,0, itemsList.AbsoluteContentSize.Y + 5)
+                    }):Play()
+                end
+                local c = Sample:Clone()
+                c.Parent = dropOpen
+                local x, y = (ms.X - c.AbsolutePosition.X), (ms.Y - c.AbsolutePosition.Y)
+                c.Position = UDim2.new(0, x, 0, y)
+                local len, size = 0.35, nil
+                if dropOpen.AbsoluteSize.X >= dropOpen.AbsoluteSize.Y then
+                    size = (dropOpen.AbsoluteSize.X * 1.5)
+                else
+                    size = (dropOpen.AbsoluteSize.Y * 1.5)
+                end
+                c:TweenSizeAndPosition(UDim2.new(0, size, 0, size), UDim2.new(0.5, (-size / 2), 0.5, (-size / 2)), 'Out', 'Quad', len, true, nil)
+                for i = 1, 10 do
+                    c.ImageTransparency = c.ImageTransparency + 0.05
+                    wait(len / 12)
+                end
+                c:Destroy()
+            end)
+
+            dropOpen.MouseEnter:Connect(function()
+                game.TweenService:Create(dropOpen, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                    BackgroundColor3 = Color3.fromRGB(121, 48, 48)
+                }):Play()
+            end)
+            dropOpen.MouseLeave:Connect(function()
+                game.TweenService:Create(dropOpen, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                    BackgroundColor3 = Color3.fromRGB(141, 56, 56)
+                }):Play()
+            end)
+
+            dropInf.Name = "dropInf"
+            dropInf.Parent = dropOpen
+            dropInf.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            dropInf.BackgroundTransparency = 1.000
+            dropInf.Position = UDim2.new(0.0177406278, 0, 0.199999809, 0)
+            dropInf.Size = UDim2.new(0, 81, 0, 18)
+            dropInf.ZIndex = 5
+            dropInf.Font = Enum.Font.Gotham
+            dropInf.Text = title
+            dropInf.TextColor3 = Color3.fromRGB(255, 255, 255)
+            dropInf.TextSize = 14.000
+            dropInf.TextXAlignment = Enum.TextXAlignment.Left
+
+            triangle.Name = "triangle"
+            triangle.Parent = dropOpen
+            triangle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            triangle.BackgroundTransparency = 1.000
+            triangle.BorderSizePixel = 0
+            triangle.ClipsDescendants = true
+            triangle.Position = UDim2.new(0.839998424, 0, -1.29596233, 0)
+            triangle.Size = UDim2.new(0, 132, 0, 81)
+            triangle.ZIndex = 5
+            triangle.Image = "http://www.roblox.com/asset/?id=6676220228"
+            triangle.ImageColor3 = Color3.fromRGB(130, 51, 51)
+
+            Sample.Name = "Sample"
+            Sample.Parent = dropOpen
+            Sample.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Sample.BackgroundTransparency = 1.000
+            Sample.ZIndex = 2
+            Sample.Image = "http://www.roblox.com/asset/?id=4560909609"
+            Sample.ImageColor3 = Color3.fromRGB(71, 27, 27)
+            Sample.ImageTransparency = 0.600
+
+            expand_more.Name = "expand_more"
+            expand_more.Parent = dropOpen
+            expand_more.BackgroundTransparency = 1.000
+            expand_more.LayoutOrder = 9
+            expand_more.Position = UDim2.new(0.935426176, 0, 0.075000003, 0)
+            expand_more.Size = UDim2.new(0, 25, 0, 25)
+            expand_more.ZIndex = 55
+            expand_more.Image = "rbxassetid://3926305904"
+            expand_more.ImageColor3 = Color3.fromRGB(235, 93, 93)
+            expand_more.ImageRectOffset = Vector2.new(564, 284)
+            expand_more.ImageRectSize = Vector2.new(36, 36)
+
+            dropList.Name = "dropList"
+            dropList.Parent = dropFrame
+            dropList.HorizontalAlignment = Enum.HorizontalAlignment.Center
+            dropList.SortOrder = Enum.SortOrder.LayoutOrder
+            dropList.Padding = UDim.new(0, 5)
+
+            for i,v in next, list do
+                local dropOption = Instance.new("TextButton")
+                local btnText = Instance.new("TextLabel")
+                local Sample_2 = Instance.new("ImageLabel")
+
+                dropOption.Name = "dropOption"
+                dropOption.Parent = dropFrame
+                dropOption.BackgroundColor3 = Color3.fromRGB(141, 56, 56)
+                dropOption.BorderColor3 = Color3.fromRGB(30, 30, 30)
+                dropOption.ClipsDescendants = true
+                dropOption.Position = UDim2.new(0, 0, 0.25179857, 0)
+                dropOption.Size = UDim2.new(0, 464, 0, 32)
+                dropOption.AutoButtonColor = false
+                dropOption.Font = Enum.Font.SourceSans
+                dropOption.Text = ""
+                dropOption.TextColor3 = Color3.fromRGB(0, 0, 0)
+                dropOption.TextSize = 14.000
+
+                btnText.Name = "btnText"
+                btnText.Parent = dropOption
+                btnText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                btnText.BackgroundTransparency = 1.000
+                btnText.Position = UDim2.new(0.01774057, 0, 0.200000182, 0)
+                btnText.Size = UDim2.new(0, 175, 0, 18)
+                btnText.ZIndex = 5
+                btnText.Font = Enum.Font.Gotham
+                btnText.Text = v
+                btnText.TextColor3 = Color3.fromRGB(255, 255, 255)
+                btnText.TextSize = 14.000
+                btnText.TextXAlignment = Enum.TextXAlignment.Left
+
+                Sample_2.Name = "Sample"
+                Sample_2.Parent = dropOption
+                Sample_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Sample_2.BackgroundTransparency = 1.000
+                Sample_2.ZIndex = 2
+                Sample_2.Image = "http://www.roblox.com/asset/?id=4560909609"
+                Sample_2.ImageColor3 = Color3.fromRGB(71, 27, 27)
+                Sample_2.ImageTransparency = 0.600
+
+                local btn = dropOption
+                local sample = Sample_2
+                btn.MouseButton1Click:Connect(function()
+                    dropInf.Text = v
+                    callback(v)
+                    game.TweenService:Create(dropFrame, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        Size = UDim2.new(0,474,0,32)
+                    }):Play()
+                    game.TweenService:Create(expand_more, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        Rotation = 0
+                    }):Play()
+                    wait(0.1)
+                    game.TweenService:Create(sectionMain, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        Size = UDim2.new(0,itemsList.AbsoluteContentSize.X,0, itemsList.AbsoluteContentSize.Y + 5)
+                    }):Play()
+                    dOpened = false
+                    local c = Sample:Clone()
+                    c.Parent = dropOpen
+                    local x, y = (ms.X - c.AbsolutePosition.X), (ms.Y - c.AbsolutePosition.Y)
+                    c.Position = UDim2.new(0, x, 0, y)
+                    local len, size = 0.35, nil
+                    if dropOpen.AbsoluteSize.X >= dropOpen.AbsoluteSize.Y then
+                        size = (dropOpen.AbsoluteSize.X * 1.5)
+                    else
+                        size = (dropOpen.AbsoluteSize.Y * 1.5)
+                    end
+                    c:TweenSizeAndPosition(UDim2.new(0, size, 0, size), UDim2.new(0.5, (-size / 2), 0.5, (-size / 2)), 'Out', 'Quad', len, true, nil)
+                    for i = 1, 10 do
+                        c.ImageTransparency = c.ImageTransparency + 0.05
+                        wait(len / 12)
+                    end
+                    c:Destroy()
+                end)
+
+                btn.MouseEnter:Connect(function()
+                    game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        BackgroundColor3 = Color3.fromRGB(121, 48, 48)
+                    }):Play()
+                end)
+                btn.MouseLeave:Connect(function()
+                    game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        BackgroundColor3 = Color3.fromRGB(141, 56, 56)
+                    }):Play()
+                end)
+            end
+            function DropdownFunc:Refresh(newList)
+                newList = newList or {}
+                for i,v in next, dropFrame:GetChildren() do
+                    if v.Name == "dropOption" then
+                        v:Destroy()
+                    end
+                end
+                for i,v in next, newList do
+                    local dropOption = Instance.new("TextButton")
+                    local btnText = Instance.new("TextLabel")
+                    local Sample_2 = Instance.new("ImageLabel")
+
+                    dropOption.Name = "dropOption"
+                    dropOption.Parent = dropFrame
+                    dropOption.BackgroundColor3 = Color3.fromRGB(141, 56, 56)
+                    dropOption.BorderColor3 = Color3.fromRGB(30, 30, 30)
+                    dropOption.ClipsDescendants = true
+                    dropOption.Position = UDim2.new(0, 0, 0.25179857, 0)
+                    dropOption.Size = UDim2.new(0, 464, 0, 32)
+                    dropOption.AutoButtonColor = false
+                    dropOption.Font = Enum.Font.SourceSans
+                    dropOption.Text = ""
+                    dropOption.TextColor3 = Color3.fromRGB(0, 0, 0)
+                    dropOption.TextSize = 14.000
+
+                    btnText.Name = "btnText"
+                    btnText.Parent = dropOption
+                    btnText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                    btnText.BackgroundTransparency = 1.000
+                    btnText.Position = UDim2.new(0.01774057, 0, 0.200000182, 0)
+                    btnText.Size = UDim2.new(0, 175, 0, 18)
+                    btnText.ZIndex = 5
+                    btnText.Font = Enum.Font.Gotham
+                    btnText.Text = v
+                    btnText.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    btnText.TextSize = 14.000
+                    btnText.TextXAlignment = Enum.TextXAlignment.Left
+
+                    Sample_2.Name = "Sample"
+                    Sample_2.Parent = dropOption
+                    Sample_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                    Sample_2.BackgroundTransparency = 1.000
+                    Sample_2.ZIndex = 2
+                    Sample_2.Image = "http://www.roblox.com/asset/?id=4560909609"
+                    Sample_2.ImageColor3 = Color3.fromRGB(71, 27, 27)
+                    Sample_2.ImageTransparency = 0.600
+
+                    local btn = dropOption
+                    local sample = Sample_2
+                    local mouse = game:GetService("Players").LocalPlayer:GetMouse()
+                    local ms = mouse
+                    btn.MouseButton1Click:Connect(function()
+                        dropInf.Text = v
+                        callback(v)
+                        game.TweenService:Create(dropFrame, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                            Size = UDim2.new(0,474,0,32)
+                        }):Play()
+                        game.TweenService:Create(expand_more, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                            Rotation = 0
+                        }):Play()
+                        wait(0.1)
+                        game.TweenService:Create(sectionMain, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                            Size = UDim2.new(0,itemsList.AbsoluteContentSize.X,0, itemsList.AbsoluteContentSize.Y + 5)
+                        }):Play()
+                        dOpened = false
+                        local c = Sample:Clone()
+                        c.Parent = dropOpen
+                        local x, y = (ms.X - c.AbsolutePosition.X), (ms.Y - c.AbsolutePosition.Y)
+                        c.Position = UDim2.new(0, x, 0, y)
+                        local len, size = 0.35, nil
+                        if dropOpen.AbsoluteSize.X >= dropOpen.AbsoluteSize.Y then
+                            size = (dropOpen.AbsoluteSize.X * 1.5)
+                        else
+                            size = (dropOpen.AbsoluteSize.Y * 1.5)
+                        end
+                        c:TweenSizeAndPosition(UDim2.new(0, size, 0, size), UDim2.new(0.5, (-size / 2), 0.5, (-size / 2)), 'Out', 'Quad', len, true, nil)
+                        for i = 1, 10 do
+                            c.ImageTransparency = c.ImageTransparency + 0.05
+                            wait(len / 12)
+                        end
+                        c:Destroy()
+                    end)
+
+                    btn.MouseEnter:Connect(function()
+                        game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                            BackgroundColor3 = Color3.fromRGB(121, 48, 48)
+                        }):Play()
+                    end)
+                    btn.MouseLeave:Connect(function()
+                        game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                            BackgroundColor3 = Color3.fromRGB(141, 56, 56)
+                        }):Play()
+                    end)
+                end
+                if dOpened then 
+                    game.TweenService:Create(dropFrame, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        Size = UDim2.new(0,474,0,dropList.AbsoluteContentSize.Y + 5)
+                    }):Play()
+                    game.TweenService:Create(expand_more, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        Rotation = 180
+                    }):Play()
+                    wait(0.1)
+                    game.TweenService:Create(sectionMain, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        Size = UDim2.new(0,itemsList.AbsoluteContentSize.X,0, itemsList.AbsoluteContentSize.Y + 5)
+                    }):Play()
+                else
+                    game.TweenService:Create(dropFrame, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        Size = UDim2.new(0,474,0,32)
+                    }):Play()
+                    game.TweenService:Create(expand_more, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        Rotation = 0
+                    }):Play()
+                    wait(0.1)
+                    game.TweenService:Create(sectionMain, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+                        Size = UDim2.new(0,itemsList.AbsoluteContentSize.X,0, itemsList.AbsoluteContentSize.Y + 5)
+                    }):Play()
+                end
+            end
+            return DropdownFunc
+        end
+        function fElements:Seperator()
+            local seperator = Instance.new("Frame")
+
+            seperator.Name = "seperator"
+            seperator.Parent = sectionMain
+            seperator.BackgroundColor3 = Color3.fromRGB(141, 56, 56)
+            seperator.BorderColor3 = Color3.fromRGB(27, 27, 27)
+            seperator.Size = UDim2.new(0, 474, 0, 2)
         end
         return fElements
     end
