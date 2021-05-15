@@ -1,5 +1,6 @@
 local Forums = {}
 local minimized = false
+
 local tween = game:GetService("TweenService")
 local tweeninfo = TweenInfo.new
 local input = game:GetService("UserInputService")
