@@ -91,7 +91,7 @@ function Forums.new(newName)
     UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
     UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-    _81asf91z9asf1.Name = "81asf91z9asf1"
+    _81asf91z9asf1.Name = newName
     _81asf91z9asf1.Parent = game.CoreGui
     _81asf91z9asf1.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
