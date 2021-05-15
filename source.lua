@@ -67,6 +67,11 @@ function Forums:UIMinimize()
     end
 
 function Forums.new(newName)
+    for i,v in pairs(game.CoreGui:GetChildren()) do
+	if v.Name == newName then
+           v:Destroy()             
+        end
+    end
     getgenv().libName = newName
     newName = newName or "forum.robloxscripts.com"
 
