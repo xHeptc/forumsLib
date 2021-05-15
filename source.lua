@@ -67,7 +67,7 @@ function Forums:UIMinimize()
     end
 
 function Forums.new(newName)
-    getgenv().LibName = newName
+    getgenv().libName = newName
     newName = newName or "forum.robloxscripts.com"
 
     local _81asf91z9asf1 = Instance.new("ScreenGui")
