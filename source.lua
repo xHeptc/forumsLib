@@ -1,5 +1,4 @@
 local Forums = {}
-local minimized = false
 
 local tween = game:GetService("TweenService")
 local tweeninfo = TweenInfo.new
@@ -44,29 +43,9 @@ function Forums:DraggingEnabled(frame, parent)
         end
     end)
 end
-function Forums:UIMinimize()
-        if minimized then
-            game.TweenService:Create(game.CoreGui[getgenv().libName].shadow.Main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
-                Size = UDim2.new(0, 486, 0, 283)
-            }):Play()
-            wait()
-            game.TweenService:Create(game.CoreGui[getgenv().libName].shadow, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
-                ImageTransparency = 0
-            }):Play()
-            minimized = false
-        else
-            game.TweenService:Create(game.CoreGui[getgenv().libName].shadow, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
-                ImageTransparency = 1
-            }):Play()
-            wait()
-            game.TweenService:Create(game.CoreGui[getgenv().libName].shadow.Main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
-                Size = UDim2.new(0,0,0,0)
-            }):Play()
-            minimized = true
-        end
-    end
 
 function Forums.new(newName)
+        local minimized = false
     getgenv().libName = newName
     newName = newName or "forum.robloxscripts.com"
 
@@ -119,6 +98,28 @@ function Forums.new(newName)
     header.BorderSizePixel = 0
     header.ClipsDescendants = true
     header.Size = UDim2.new(1.00000012, 0, -0.00295740133, 36)
+        
+    function Forums:UIMinimize()
+        if minimized then
+            game.TweenService:Create(Main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+                Size = UDim2.new(0, 486, 0, 283)
+            }):Play()
+            wait()
+            game.TweenService:Create(shadow, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+                ImageTransparency = 0
+            }):Play()
+            minimized = false
+        else
+            game.TweenService:Create(shadow, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+                ImageTransparency = 1
+            }):Play()
+            wait()
+            game.TweenService:Create(Main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+                Size = UDim2.new(0,0,0,0)
+            }):Play()
+            minimized = true
+        end
+    end
 
     title.Name = "title"
     title.Parent = header
